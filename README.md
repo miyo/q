@@ -1,6 +1,16 @@
 # joke command q (like unix y)
 
-todo
+##
+
+```
+# ./q -n 3
+# 011
+# ./q -n 3
+# 001
+# ./q -n 3
+# 000
+...
+```
 
 ## usage
 * q # 1-qubitを対象に計測して表示
