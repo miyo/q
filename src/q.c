@@ -69,18 +69,18 @@ void apply_qbits(struct qubits *q, double *m)
 {
     size_t sz = q->states;
 
-    double complex *na = (double complex*)malloc(sizeof(double complex) * sz);
+    double complex *o = q->amps;
+    q->amps = (double complex*)malloc(sizeof(double complex) * q->states);
     for(int i = 0; i < sz; i++){
-	na[i] = 0.0 + 0.0i;
+	q->amps[i] = 0.0 + 0.0i;
     }
     
     for(int i = 0; i < sz; i++){
 	for(int j = 0; j < sz; j++){
-	    na[i] += m[sz*j+i] * q->amps[j];
+	    q->amps[i] += m[sz*j+i] * o[j];
 	}
     }
-    free(q->amps);
-    q->amps = na;
+    free(o);
 }
 
 void list_qbits_str(struct qubits *q, int value, char *s)

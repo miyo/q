@@ -58,7 +58,9 @@ int main(int argc, char** argv){
     time_t t;
     srand((unsigned) time(&t));
     
+    printf("init qubits...\n");
     init_qubits(&q, num);
+    printf("done\n");
 
 #if 0
     for(int i = 0; i < q.states; i++){
@@ -66,7 +68,10 @@ int main(int argc, char** argv){
     }
 #endif
 
+    printf("apply hadamal...\n");
     for(int id = 0; id < num; id++){
+	printf("for %d...\n", id);
+	printf("generate...\n");
 	double * m = hadamal(&q, id);
 	for(int i = 0; i < q.states; i++){
 	    for(int j = 0; j < q.states; j++){
@@ -74,9 +79,13 @@ int main(int argc, char** argv){
 	    }
 	    fprintf(stderr, "\n");
 	}
+	printf("apply...\n");
 	apply_qbits(&q, m);
+	printf("free...\n");
 	free(m);
+	printf("done.\n");
     }
+    printf("done\n");
     
     for(int i = 0; i < q.states; i++){
 	fprintf(stderr, "%f + i%f\n", creal(q.amps[i]), cimag(q.amps[i]));
